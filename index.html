@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="СЦЕНА — ивент-агентство. Организуем корпоративы, форумы, концерты, фестивали и церемонии.">
+  <title>СЦЕНА — ивент-агентство</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="site-header wrap">
+    <div class="identity">
+      <a class="brand" href="#top" aria-label="СЦЕНА, на главную">СЦЕНА<span class="brand-period">.</span></a>
+      <p>Ивент-агентство</p>
+    </div>
+    <nav class="nav" aria-label="Разделы сайта">
+      <a href="#formats">Форматы</a><a href="#approach">Подход</a><a href="#brief">Обсудить проект</a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <figure class="hero-visual">
+        <img src="assets/scene.webp" alt="Танцор на тёмной сцене в лучах красного света" fetchpriority="high">
+        <div class="hero-copy wrap">
+          <h1 class="display" id="hero-title"><span class="hero-title-line">События<span class="brand-period">.</span></span></h1>
+        </div>
+        <figcaption class="hero-caption wrap">Визуализация сценической постановки</figcaption>
+      </figure>
+      <div class="intro"><p class="wrap">Организуем события для компаний, культурных проектов и города.</p></div>
+    </section>
+
+    <section class="section formats" id="formats" aria-labelledby="formats-title">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <h2 class="display" id="formats-title">Форматы<span>.</span></h2>
+        </div>
+        <div class="filters" aria-label="Фильтр форматов">
+          <button type="button" data-filter="all" aria-pressed="true">Все форматы</button>
+          <button type="button" data-filter="business" aria-pressed="false">Для компаний</button>
+          <button type="button" data-filter="culture" aria-pressed="false">Культурные и городские</button>
+        </div>
+        <div class="format-grid" id="format-list"></div>
+        <p class="image-note">Визуализации форматов.</p>
+      </div>
+    </section>
+
+    <section class="approach section" id="approach" aria-labelledby="approach-title">
+      <div class="wrap" data-reveal>
+        <h2 class="display" id="approach-title">Как работаем<span>.</span></h2>
+        <div class="process">
+          <details><summary>Идея и сценарий</summary><p>Выясняем, кто придёт и с каким впечатлением должен уйти. Предлагаем концепцию, собираем программу и согласуем бюджет.</p></details>
+          <details><summary>Подготовка</summary><p>Подбираем площадку и команду, планируем застройку, свет и звук. Готовим тайминг, репетиции и план работы на площадке.</p></details>
+          <details><summary>День события</summary><p>Координируем подрядчиков и программу, встречаем гостей и держим связь со сценой. Если предусмотрена съёмка, собираем материалы и готовим итоговый ролик.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="brief" aria-labelledby="brief-title">
+      <div class="wrap">
+        <div class="contact-head" data-reveal>
+          <h2 class="display" id="brief-title">Обсудим<br>событие<span>?</span></h2>
+        </div>
+        <details id="brief-disclosure" class="brief-disclosure">
+          <summary><span>Заполнить<br>бриф</span></summary>
+          <div class="contact-body">
+            <p class="contact-copy">Расскажи, что намечается. Готовый бриф можно скачать или скопировать.</p>
+            <form id="brief-form">
+              <label>Формат<select name="format" id="brief-format" required><option value="">Выбери формат</option><option>Корпоратив</option><option>Конференция или форум</option><option>Концерт или фестиваль</option><option>Городское событие</option><option>Премия или гала-вечер</option><option>Другой формат</option></select></label>
+              <div class="form-row">
+                <label>Дата или период<input name="date" maxlength="100" placeholder="Например, декабрь" /></label>
+                <label>Город<input name="city" maxlength="100" placeholder="Где пройдёт событие" /></label>
+              </div>
+              <label>О событии<textarea name="details" rows="4" maxlength="2000" required placeholder="Задача, число гостей и бюджет, если уже известен"></textarea></label>
+              <button class="button dark" type="submit">Собрать бриф</button>
+              <div id="brief-result" class="brief-result" hidden>
+                <p>Бриф готов к отправке.</p>
+                <textarea id="brief-text" rows="5" readonly aria-label="Готовый бриф"></textarea>
+                <div class="result-actions"><button class="button outline" type="button" id="copy-brief">Скопировать</button><button class="button outline" type="button" id="download-brief">Скачать TXT</button></div>
+                <p id="brief-status" role="status"></p>
+              </div>
+            </form>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap site-footer">
+    <a class="brand" href="#top" aria-label="СЦЕНА, на главную">СЦЕНА<span class="brand-period">.</span></a>
+    <span>Ивент-агентство</span><a href="#top">К началу</a>
+  </footer>
+  <dialog id="format-dialog" aria-labelledby="dialog-title">
+    <div class="format-detail">
+      <figure class="detail-visual">
+        <img id="dialog-image" alt="">
+        <figcaption>Визуализация формата</figcaption>
+      </figure>
+      <div class="dialog-inner">
+        <button class="close" type="button" aria-label="Закрыть" autofocus>×</button>
+        <h2 id="dialog-title"></h2>
+        <p id="dialog-description"></p>
+        <ul id="dialog-list"></ul>
+        <button class="button dark" type="button" id="choose-format">Добавить в бриф</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
