@@ -420,3 +420,39 @@ input, select, textarea { font-family: "Golos Text", Arial, sans-serif; font-wei
  .format-type, .image-note, .step-output { font-size: 12px; }
  .process li p { font-size: 16px; }
 }
+
+/* Details follow the same grid and single accent. */
+strong { font-weight: 650; color: var(--ink); }
+.contact-copy strong { color: inherit; }
+.section-label span:first-child::before { display: none; }
+.team { background: #202224; border-top: 1px solid #454749; }
+.team-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 7vw, 110px); }
+.team-intro h2 { font-size: clamp(78px, 10vw, 144px); }
+.team-intro > p { font-size: clamp(17px, 1.5vw, 22px); line-height: 1.55; letter-spacing: -.025em; margin-top: 26px; max-width: 32ch; color: var(--muted); }
+.team-roles article { border-top: 1px solid #56585a; padding-block: 25px 32px; }
+.role-label { display: block; font: 400 12px/1.6 var(--meta); color: var(--accent); margin-bottom: 18px; }
+.team-roles h3 { font-size: clamp(23px, 2.4vw, 36px); font-weight: 600; line-height: 1.12; letter-spacing: -.04em; margin-bottom: 14px; }
+.team-roles p { color: #b8b7b4; line-height: 1.6; font-size: 16px; max-width: 43ch; letter-spacing: -.015em; }
+.team-art { position: relative; display: flex; align-items: center; height: clamp(150px, 19vw, 270px); margin-top: 30px; overflow: hidden; border-bottom: 1px solid #56585a; }
+.team-art > span { flex: 0 0 42%; aspect-ratio: 1; border: 1px solid #737573; border-radius: 50%; }
+.team-art > span + span { margin-left: -17%; }
+.team-art > span:nth-child(2) { border-color: var(--accent); background: #F04B3215; }
+.team-art i { position: absolute; inset: 50% auto auto 0; transform: translateY(-50%); font: 400 11px/1.5 var(--meta); font-style: normal; letter-spacing: .2em; background: #202224; padding: 6px 10px 6px 0; }
+.process li { position: relative; }
+.process li::before { content: ""; position: absolute; left: 0; top: -1px; width: 48px; height: 2px; background: var(--accent); }
+.format-open { color: var(--accent); border-color: #65615c; }
+.brief-disclosure > summary { transition: background 180ms, border-color 180ms; }
+@media(prefers-reduced-motion:no-preference) {
+ .team-art:hover > span:nth-child(2) { transform: translateX(12px); }
+ .team-art > span { transition: transform 700ms var(--ease-out); }
+}
+@media(max-width:900px) { .nav { gap: 18px; } .nav a { font-size: 12px; } }
+@media(max-width:700px) {
+ .team-layout { grid-template-columns: 1fr; gap: 32px; }
+ .team-intro h2 { font-size: clamp(68px, 19vw, 120px); }
+ .team-art { height: 150px; max-width: 420px; }
+ .team-roles article { padding-block: 22px 28px; }
+ .role-label { margin-bottom: 12px; }
+ .team-roles h3 { font-size: clamp(23px, 6vw, 32px); }
+ .process li::before { width: 28px; }
+}
