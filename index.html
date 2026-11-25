@@ -6,28 +6,41 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="СЦЕНА — ивент-агентство. Организуем корпоративы, форумы, концерты, фестивали и церемонии.">
   <title>СЦЕНА — ивент-агентство</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <script src="app.js?v=3" defer></script>
 </head>
 <body id="top">
   <a class="skip" href="#main">К содержанию</a>
-  <header class="site-header wrap">
-    <div class="identity">
+  <header class="masthead">
+    <div class="site-header wrap">
       <a class="brand" href="#top" aria-label="СЦЕНА, на главную">СЦЕНА<span class="brand-period">.</span></a>
-      <p>Ивент-агентство</p>
+      <nav class="nav" aria-label="Разделы сайта">
+        <a href="#formats">Форматы</a><a href="#approach">Подход</a><a href="#brief">Обсудить проект</a>
+      </nav>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false">Меню<span class="menu-lines" aria-hidden="true"></span></button>
     </div>
-    <nav class="nav" aria-label="Разделы сайта">
-      <a href="#formats">Форматы</a><a href="#approach">Подход</a><a href="#brief">Обсудить проект</a>
-    </nav>
   </header>
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
       <figure class="hero-visual">
-        <img src="assets/scene.webp" alt="Танцор на тёмной сцене в лучах красного света" fetchpriority="high">
+        <div class="hero-frames" aria-hidden="true">
+          <img class="hero-frame is-active" src="assets/scene.webp" alt="" fetchpriority="high">
+          <img class="hero-frame" src="assets/forum.webp" alt="">
+          <img class="hero-frame" src="assets/awards.webp" alt="">
+        </div>
         <div class="hero-copy wrap">
+          <p>Ивент-агентство</p>
           <h1 class="display" id="hero-title"><span class="hero-title-line">События<span class="brand-period">.</span></span></h1>
         </div>
-        <figcaption class="hero-caption wrap">Визуализация сценической постановки</figcaption>
+        <figcaption class="hero-caption wrap">
+          <span id="hero-caption">Визуализация · Сценическая постановка</span>
+          <div class="hero-controls" role="group" aria-label="Кадры заставки">
+            <button type="button" data-frame="0" aria-label="Сценическая постановка" aria-pressed="true"></button>
+            <button type="button" data-frame="1" aria-label="Деловой форум" aria-pressed="false"></button>
+            <button type="button" data-frame="2" aria-label="Церемония награждения" aria-pressed="false"></button>
+            <button type="button" id="hero-play" class="hero-play" aria-label="Пауза смены кадров"><span class="play-icon" aria-hidden="true"></span></button>
+          </div>
+        </figcaption>
       </figure>
       <div class="intro"><p class="wrap">Организуем события для компаний, культурных проектов и города.</p></div>
     </section>
@@ -35,7 +48,7 @@
     <section class="section formats" id="formats" aria-labelledby="formats-title">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <h2 class="display" id="formats-title">Форматы<span>.</span></h2>
+          <h2 class="display" id="formats-title" tabindex="-1">Форматы<span>.</span></h2>
         </div>
         <div class="filters" aria-label="Фильтр форматов">
           <button type="button" data-filter="all" aria-pressed="true">Все форматы</button>
@@ -49,7 +62,7 @@
 
     <section class="approach section" id="approach" aria-labelledby="approach-title">
       <div class="wrap" data-reveal>
-        <h2 class="display" id="approach-title">Как работаем<span>.</span></h2>
+        <h2 class="display" id="approach-title" tabindex="-1">Как работаем<span>.</span></h2>
         <div class="process">
           <details><summary>Идея и сценарий</summary><p>Выясняем, кто придёт и с каким впечатлением должен уйти. Предлагаем концепцию, собираем программу и согласуем бюджет.</p></details>
           <details><summary>Подготовка</summary><p>Подбираем площадку и команду, планируем застройку, свет и звук. Готовим тайминг, репетиции и план работы на площадке.</p></details>
@@ -61,7 +74,7 @@
     <section class="section contact" id="brief" aria-labelledby="brief-title">
       <div class="wrap">
         <div class="contact-head" data-reveal>
-          <h2 class="display" id="brief-title">Обсудим<br>событие<span>?</span></h2>
+          <h2 class="display" id="brief-title" tabindex="-1">Обсудим<br>событие<span>?</span></h2>
         </div>
         <details id="brief-disclosure" class="brief-disclosure">
           <summary><span>Заполнить<br>бриф</span></summary>
@@ -91,6 +104,20 @@
     <a class="brand" href="#top" aria-label="СЦЕНА, на главную">СЦЕНА<span class="brand-period">.</span></a>
     <span>Ивент-агентство</span><a href="#top">К началу</a>
   </footer>
+  <dialog id="site-menu" class="site-menu" aria-labelledby="menu-heading">
+    <div class="menu-panel wrap">
+      <header class="menu-top">
+        <p id="menu-heading">Меню</p>
+        <button type="button" id="menu-close" class="menu-toggle" autofocus>Закрыть <span aria-hidden="true">×</span></button>
+      </header>
+      <nav aria-label="Основное меню" class="menu-links">
+        <a href="#top">Главная</a>
+        <a href="#formats">Форматы</a>
+        <a href="#approach">Как работаем</a>
+        <a href="#brief">Обсудить проект</a>
+      </nav>
+    </div>
+  </dialog>
   <dialog id="format-dialog" aria-labelledby="dialog-title">
     <div class="format-detail">
       <figure class="detail-visual">

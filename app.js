@@ -53,6 +53,73 @@ const status = document.querySelector("#brief-status");
 let currentFormat;
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const menu = document.querySelector("#site-menu");
+const menuToggle = document.querySelector("#menu-toggle");
+
+menuToggle.addEventListener("click", () => {
+  menu.showModal();
+  menuToggle.setAttribute("aria-expanded", "true");
+});
+document.querySelector("#menu-close").addEventListener("click", () => menu.close());
+menu.addEventListener("close", () => menuToggle.setAttribute("aria-expanded", "false"));
+menu.querySelectorAll(".menu-links a").forEach((link) => {
+  link.addEventListener("click", () => {
+    menu.close();
+    const section = document.querySelector(link.hash);
+    section?.querySelector("h2")?.focus({ preventScroll: true });
+  });
+});
+
+const hero = document.querySelector(".hero-visual");
+const heroFrames = [...hero.querySelectorAll(".hero-frame")];
+const heroButtons = [...hero.querySelectorAll("[data-frame]")];
+const heroCaption = document.querySelector("#hero-caption");
+const heroPlay = document.querySelector("#hero-play");
+let activeFrame = 0;
+let playing = !reducedMotion.matches;
+let heroInView = true;
+let heroTimer;
+
+function showFrame(index) {
+  activeFrame = index;
+  heroFrames.forEach((frame, order) => frame.classList.toggle("is-active", order === index));
+  heroButtons.forEach((button, order) => button.setAttribute("aria-pressed", String(order === index)));
+  heroCaption.textContent = `Визуализация · ${heroButtons[index].getAttribute("aria-label")}`;
+}
+
+function syncHeroPlayback() {
+  clearInterval(heroTimer);
+  heroPlay.classList.toggle("is-paused", !playing);
+  heroPlay.setAttribute("aria-label", playing ? "Пауза смены кадров" : "Включить смену кадров");
+  if (playing && heroInView && !document.hidden && !menu.open) {
+    heroTimer = setInterval(() => showFrame((activeFrame + 1) % heroFrames.length), 4800);
+  }
+}
+
+heroButtons.forEach((button, index) => button.addEventListener("click", () => {
+  playing = false;
+  showFrame(index);
+  syncHeroPlayback();
+}));
+heroPlay.addEventListener("click", () => {
+  playing = !playing;
+  syncHeroPlayback();
+});
+document.addEventListener("visibilitychange", syncHeroPlayback);
+menu.addEventListener("close", syncHeroPlayback);
+menuToggle.addEventListener("click", syncHeroPlayback);
+reducedMotion.addEventListener("change", (event) => {
+  if (event.matches) playing = false;
+  syncHeroPlayback();
+});
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    heroInView = entry.isIntersecting;
+    syncHeroPlayback();
+  }, { threshold: 0.2 }).observe(hero);
+}
+syncHeroPlayback();
+
 const revealOnScroll = "IntersectionObserver" in window
   ? new IntersectionObserver((entries, observer) => {
     for (const entry of entries) {
