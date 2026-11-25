@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="СЦЕНА — ивент-агентство. Организуем корпоративы, форумы, концерты, фестивали и церемонии.">
   <title>СЦЕНА — ивент-агентство</title>
-  <link rel="stylesheet" href="style.css?v=3">
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="style.css?v=4">
+  <script src="app.js?v=4" defer></script>
 </head>
 <body id="top">
   <a class="skip" href="#main">К содержанию</a>
@@ -21,53 +21,68 @@
     </div>
   </header>
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <figure class="hero-visual">
-        <div class="hero-frames" aria-hidden="true">
-          <img class="hero-frame is-active" src="assets/scene.webp" alt="" fetchpriority="high">
-          <img class="hero-frame" src="assets/forum.webp" alt="">
-          <img class="hero-frame" src="assets/awards.webp" alt="">
-        </div>
-        <div class="hero-copy wrap">
-          <p>Ивент-агентство</p>
-          <h1 class="display" id="hero-title"><span class="hero-title-line">События<span class="brand-period">.</span></span></h1>
-        </div>
-        <figcaption class="hero-caption wrap">
-          <span id="hero-caption">Визуализация · Сценическая постановка</span>
-          <div class="hero-controls" role="group" aria-label="Кадры заставки">
-            <button type="button" data-frame="0" aria-label="Сценическая постановка" aria-pressed="true"></button>
-            <button type="button" data-frame="1" aria-label="Деловой форум" aria-pressed="false"></button>
-            <button type="button" data-frame="2" aria-label="Церемония награждения" aria-pressed="false"></button>
-            <button type="button" id="hero-play" class="hero-play" aria-label="Пауза смены кадров"><span class="play-icon" aria-hidden="true"></span></button>
-          </div>
-        </figcaption>
-      </figure>
-      <div class="intro"><p class="wrap">Организуем события для компаний, культурных проектов и города.</p></div>
-    </section>
-
     <section class="section formats" id="formats" aria-labelledby="formats-title">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <h2 class="display" id="formats-title" tabindex="-1">Форматы<span>.</span></h2>
+          <h1 class="display" id="formats-title" tabindex="-1">Форматы<span>.</span></h1>
+          <p>Организуем события для компаний, культурных проектов и города.</p>
         </div>
         <div class="filters" aria-label="Фильтр форматов">
           <button type="button" data-filter="all" aria-pressed="true">Все форматы</button>
           <button type="button" data-filter="business" aria-pressed="false">Для компаний</button>
           <button type="button" data-filter="culture" aria-pressed="false">Культурные и городские</button>
         </div>
+        <figure class="hero-visual" id="featured-format">
+          <div class="hero-frames" aria-hidden="true">
+            <img class="hero-frame is-active" src="assets/scene.webp" alt="" fetchpriority="high">
+            <img class="hero-frame" src="assets/forum.webp" alt="">
+            <img class="hero-frame" src="assets/awards.webp" alt="">
+          </div>
+          <figcaption class="hero-caption">
+            <div class="hero-copy">
+              <p>Визуализация формата</p>
+              <h2 class="display" id="hero-caption">Концерты и фестивали</h2>
+              <button class="featured-link" id="featured-details" type="button" aria-haspopup="dialog">О формате</button>
+            </div>
+            <div class="hero-controls" role="group" aria-label="Кадры галереи">
+              <button type="button" data-frame="0" aria-label="Концерты и фестивали" aria-pressed="true"></button>
+              <button type="button" data-frame="1" aria-label="Конференции и форумы" aria-pressed="false"></button>
+              <button type="button" data-frame="2" aria-label="Премии и гала-вечера" aria-pressed="false"></button>
+              <button type="button" id="hero-play" class="hero-play" aria-label="Пауза смены кадров"><span class="play-icon" aria-hidden="true"></span></button>
+            </div>
+          </figcaption>
+        </figure>
         <div class="format-grid" id="format-list"></div>
-        <p class="image-note">Визуализации форматов.</p>
+        <p class="image-note">Изображения показывают атмосферу форматов.</p>
       </div>
     </section>
 
-    <section class="approach section" id="approach" aria-labelledby="approach-title">
-      <div class="wrap" data-reveal>
-        <h2 class="display" id="approach-title" tabindex="-1">Как работаем<span>.</span></h2>
-        <div class="process">
-          <details><summary>Идея и сценарий</summary><p>Выясняем, кто придёт и с каким впечатлением должен уйти. Предлагаем концепцию, собираем программу и согласуем бюджет.</p></details>
-          <details><summary>Подготовка</summary><p>Подбираем площадку и команду, планируем застройку, свет и звук. Готовим тайминг, репетиции и план работы на площадке.</p></details>
-          <details><summary>День события</summary><p>Координируем подрядчиков и программу, встречаем гостей и держим связь со сценой. Если предусмотрена съёмка, собираем материалы и готовим итоговый ролик.</p></details>
+    <section class="section approach" id="approach" aria-labelledby="approach-title">
+      <div class="wrap">
+        <div class="process-head" data-reveal>
+          <h2 class="display" id="approach-title" tabindex="-1">Как работаем<span>.</span></h2>
+          <p>Три этапа от первого разговора до дня события.</p>
         </div>
+        <ol class="process" aria-label="Этапы организации события">
+          <li data-reveal>
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3 class="display">Идея</h3>
+            <p>Определяем задачу, предлагаем концепцию и согласуем бюджет.</p>
+            <span class="step-output">Концепция и смета</span>
+          </li>
+          <li data-reveal>
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3 class="display">Подготовка</h3>
+            <p>Подбираем площадку и команду, планируем программу и репетиции.</p>
+            <span class="step-output">Сценарий и тайминг</span>
+          </li>
+          <li data-reveal>
+            <span class="step-number" aria-hidden="true">3</span>
+            <h3 class="display">Событие</h3>
+            <p>Встречаем гостей и координируем программу, сцену и подрядчиков.</p>
+            <span class="step-output">Работа на площадке</span>
+          </li>
+        </ol>
       </div>
     </section>
 

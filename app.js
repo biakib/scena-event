@@ -66,11 +66,12 @@ menu.querySelectorAll(".menu-links a").forEach((link) => {
   link.addEventListener("click", () => {
     menu.close();
     const section = document.querySelector(link.hash);
-    section?.querySelector("h2")?.focus({ preventScroll: true });
+    section?.querySelector("h1, h2")?.focus({ preventScroll: true });
   });
 });
 
-const hero = document.querySelector(".hero-visual");
+const hero = document.querySelector("#featured-format");
+const featuredFormats = [formats[0], formats[1], formats[4]];
 const heroFrames = [...hero.querySelectorAll(".hero-frame")];
 const heroButtons = [...hero.querySelectorAll("[data-frame]")];
 const heroCaption = document.querySelector("#hero-caption");
@@ -84,18 +85,22 @@ function showFrame(index) {
   activeFrame = index;
   heroFrames.forEach((frame, order) => frame.classList.toggle("is-active", order === index));
   heroButtons.forEach((button, order) => button.setAttribute("aria-pressed", String(order === index)));
-  heroCaption.textContent = `Визуализация · ${heroButtons[index].getAttribute("aria-label")}`;
+  heroCaption.textContent = featuredFormats[index].title;
 }
 
 function syncHeroPlayback() {
   clearInterval(heroTimer);
   heroPlay.classList.toggle("is-paused", !playing);
   heroPlay.setAttribute("aria-label", playing ? "Пауза смены кадров" : "Включить смену кадров");
-  if (playing && heroInView && !document.hidden && !menu.open) {
+  if (playing && heroInView && !hero.hidden && !document.hidden && !menu.open && !dialog.open) {
     heroTimer = setInterval(() => showFrame((activeFrame + 1) % heroFrames.length), 4800);
   }
 }
 
+document.querySelector("#featured-details").addEventListener("click", () => {
+  showDetails(featuredFormats[activeFrame]);
+});
+dialog.addEventListener("close", syncHeroPlayback);
 heroButtons.forEach((button, index) => button.addEventListener("click", () => {
   playing = false;
   showFrame(index);
@@ -145,10 +150,14 @@ function showDetails(format) {
     return item;
   }));
   dialog.showModal();
+  syncHeroPlayback();
 }
 
 function renderFormats(group) {
-  const matching = formats.filter((format) => group === "all" || format.group === group);
+  const showFeatured = group === "all";
+  hero.hidden = !showFeatured;
+  syncHeroPlayback();
+  const matching = showFeatured ? formats.slice(1) : formats.filter((format) => format.group === group);
   if (revealOnScroll) {
     [...list.querySelectorAll(".format-img")].forEach((image) => revealOnScroll.unobserve(image));
   }
@@ -157,12 +166,12 @@ function renderFormats(group) {
     card.type = "button";
     card.className = "format-card";
     card.dataset.visual = format.image;
-    if (index === 0) card.classList.add("featured");
-    if (group === "all" && index > 0) card.classList.add("gallery-card");
+    if (showFeatured && index < 2) card.classList.add("editorial-row");
     card.setAttribute("aria-haspopup", "dialog");
     card.innerHTML = `<span class="format-img"><img src="assets/${format.image}.webp" alt="" loading="lazy"></span>
       <span class="format-info">
         <span class="format-name">${format.title}</span>
+        <span class="format-type">${format.group === "business" ? "Для компаний" : "Культурные и городские"}</span>
         <span class="format-open" aria-hidden="true">+</span>
       </span>`;
     revealOnScroll?.observe(card.querySelector(".format-img"));
