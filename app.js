@@ -57,11 +57,25 @@ const menu = document.querySelector("#site-menu");
 const menuToggle = document.querySelector("#menu-toggle");
 
 menuToggle.addEventListener("click", () => {
-  menu.showModal();
-  menuToggle.setAttribute("aria-expanded", "true");
+  if (menu.open) {
+    menu.close();
+  } else {
+    menu.show();
+    menuToggle.setAttribute("aria-expanded", "true");
+  }
 });
 document.querySelector("#menu-close").addEventListener("click", () => menu.close());
 menu.addEventListener("close", () => menuToggle.setAttribute("aria-expanded", "false"));
+document.addEventListener("pointerdown", (event) => {
+  if (menu.open && !menu.contains(event.target) && !menuToggle.contains(event.target)) menu.close();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && menu.open) {
+    menu.close();
+    menuToggle.focus();
+  }
+});
+
 menu.querySelectorAll(".menu-links a").forEach((link) => {
   link.addEventListener("click", () => {
     menu.close();
@@ -279,7 +293,7 @@ function drawStage() {
     for (let row = 0; row < rows; row++) {
       const taper = Math.sin(column / (columns - 1) * Math.PI);
       const y = stageHeight * .44 + wave + (row - 3) * (8 + taper * 11);
-      context.fillStyle = row === 3 ? "#ffc643" : "#f5f3ef";
+      context.fillStyle = row === 3 ? "#b9ac94" : "#d9d8d5";
       context.globalAlpha = .32 + taper * .68;
       context.beginPath();
       context.arc(x, y, Math.max(1.1, Math.min(2.2, stageWidth / 470)), 0, Math.PI * 2);
