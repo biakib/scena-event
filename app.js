@@ -265,10 +265,6 @@ document.querySelector("#download-brief").addEventListener("click", () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
-document.querySelectorAll("[data-event]").forEach((button) => {
-  button.addEventListener("click", () => showDetails(formats[Number(button.dataset.event)]));
-});
-
 // Draw a ribbon of stage lights. Its phase stops whenever motion is paused.
 const stageCanvas = document.querySelector("#stage-canvas");
 const stageContext = stageCanvas.getContext("2d");
@@ -293,7 +289,7 @@ function drawStage() {
     for (let row = 0; row < rows; row++) {
       const taper = Math.sin(column / (columns - 1) * Math.PI);
       const y = stageHeight * .44 + wave + (row - 3) * (8 + taper * 11);
-      context.fillStyle = row === 3 ? "#b9ac94" : "#d9d8d5";
+      context.fillStyle = row === 3 ? "#bd6346" : "#d9d8d5";
       context.globalAlpha = .32 + taper * .68;
       context.beginPath();
       context.arc(x, y, Math.max(1.1, Math.min(2.2, stageWidth / 470)), 0, Math.PI * 2);
@@ -340,7 +336,6 @@ document.addEventListener("visibilitychange", syncStage);
 menu.addEventListener("close", syncStage);
 dialog.addEventListener("close", syncStage);
 menuToggle.addEventListener("click", syncStage);
-document.querySelectorAll("[data-event]").forEach((button) => button.addEventListener("click", syncStage));
 reducedMotion.addEventListener("change", (event) => {
   stagePaused = event.matches;
   syncStage();
