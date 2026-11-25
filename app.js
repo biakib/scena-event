@@ -250,3 +250,92 @@ document.querySelector("#download-brief").addEventListener("click", () => {
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
+
+document.querySelectorAll("[data-event]").forEach((button) => {
+  button.addEventListener("click", () => showDetails(formats[Number(button.dataset.event)]));
+});
+
+// Draw a ribbon of stage lights. Its phase stops whenever motion is paused.
+const stageCanvas = document.querySelector("#stage-canvas");
+const stageContext = stageCanvas.getContext("2d");
+const stageButton = document.querySelector("#stage-motion");
+let stagePaused = reducedMotion.matches;
+let stageVisible = true;
+let stageFrame = 0;
+let stageTime = 0;
+let stageLastTime = 0;
+let stageWidth = 0;
+let stageHeight = 0;
+
+function drawStage() {
+  if (!stageContext) return;
+  const context = stageContext;
+  context.clearRect(0, 0, stageWidth, stageHeight);
+  const columns = 45;
+  const rows = 7;
+  for (let column = 0; column < columns; column++) {
+    const x = (column + 1) / (columns + 1) * stageWidth;
+    const wave = Math.sin(column * .16 + stageTime) * stageHeight * .15;
+    for (let row = 0; row < rows; row++) {
+      const taper = Math.sin(column / (columns - 1) * Math.PI);
+      const y = stageHeight * .44 + wave + (row - 3) * (8 + taper * 11);
+      context.fillStyle = row === 3 ? "#ffc643" : "#f5f3ef";
+      context.globalAlpha = .32 + taper * .68;
+      context.beginPath();
+      context.arc(x, y, Math.max(1.1, Math.min(2.2, stageWidth / 470)), 0, Math.PI * 2);
+      context.fill();
+    }
+  }
+  context.globalAlpha = 1;
+}
+
+function animateStage(now) {
+  stageTime += Math.min(now - stageLastTime, 48) * .00045;
+  stageLastTime = now;
+  drawStage();
+  stageFrame = requestAnimationFrame(animateStage);
+}
+
+function syncStage() {
+  cancelAnimationFrame(stageFrame);
+  stageButton.setAttribute("aria-pressed", String(stagePaused));
+  stageButton.textContent = stagePaused ? "Включить анимацию" : "Пауза анимации";
+  if (!stagePaused && stageVisible && !document.hidden && !menu.open && !dialog.open) {
+    stageLastTime = performance.now();
+    stageFrame = requestAnimationFrame(animateStage);
+  } else {
+    drawStage();
+  }
+}
+
+function resizeStage() {
+  stageWidth = stageCanvas.clientWidth;
+  stageHeight = stageCanvas.clientHeight;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  stageCanvas.width = Math.round(stageWidth * ratio);
+  stageCanvas.height = Math.round(stageHeight * ratio);
+  stageContext?.setTransform(ratio, 0, 0, ratio, 0, 0);
+  drawStage();
+}
+stageButton.addEventListener("click", () => {
+  stagePaused = !stagePaused;
+  syncStage();
+});
+window.addEventListener("resize", resizeStage, { passive: true });
+document.addEventListener("visibilitychange", syncStage);
+menu.addEventListener("close", syncStage);
+dialog.addEventListener("close", syncStage);
+menuToggle.addEventListener("click", syncStage);
+document.querySelectorAll("[data-event]").forEach((button) => button.addEventListener("click", syncStage));
+reducedMotion.addEventListener("change", (event) => {
+  stagePaused = event.matches;
+  syncStage();
+});
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    stageVisible = entry.isIntersecting;
+    syncStage();
+  }).observe(stageCanvas);
+}
+resizeStage();
+syncStage();

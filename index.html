@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#111111">
   <meta name="description" content="СЦЕНА — ивент-агентство. Организуем корпоративы, форумы, концерты, фестивали и церемонии.">
   <title>СЦЕНА — ивент-агентство</title>
-  <link rel="stylesheet" href="style.css?v=5">
-  <script src="app.js?v=4" defer></script>
+  <link rel="stylesheet" href="style.css?v=6">
+  <script src="app.js?v=6" defer></script>
 </head>
 <body id="top">
   <a class="skip" href="#main">К содержанию</a>
@@ -21,10 +21,41 @@
     </div>
   </header>
   <main id="main">
+    <section class="opening" aria-labelledby="opening-title">
+      <div class="opening-top wrap">
+        <nav class="opening-nav" aria-label="Навигация по главной">
+          <a href="#formats">События</a>
+          <a href="#approach">Как работаем</a>
+          <a href="#brief">Начать проект</a>
+        </nav>
+        <p class="opening-note">Придумываем.<br>Собираем.<br>Проводим.</p>
+      </div>
+      <div class="stage-art wrap">
+        <canvas id="stage-canvas" aria-hidden="true"></canvas>
+        <button type="button" id="stage-motion" class="stage-motion" aria-pressed="false">Пауза анимации</button>
+      </div>
+      <div class="opening-brand wrap">
+        <h1 id="opening-title">СЦЕНА<span>.</span></h1>
+        <div class="opening-base">
+          <p>Ивент-агентство</p>
+          <p>События для компаний,<br>культуры и города.</p>
+        </div>
+      </div>
+      <div class="event-selector wrap">
+        <p>Выбери свою сцену</p>
+        <div class="event-picks" role="group" aria-label="Выбрать формат события">
+          <button type="button" data-event="0"><img src="assets/concert.webp" alt=""><span>Концерт</span></button>
+          <button type="button" data-event="1"><img src="assets/forum.webp" alt=""><span>Форум</span></button>
+          <button type="button" data-event="2"><img src="assets/dinner.webp" alt=""><span>Корпоратив</span></button>
+          <button type="button" data-event="3"><img src="assets/city.webp" alt=""><span>Город</span></button>
+          <button type="button" data-event="4"><img src="assets/awards.webp" alt=""><span>Премия</span></button>
+        </div>
+      </div>
+    </section>
     <section class="section formats" id="formats" aria-labelledby="formats-title">
       <div class="wrap">
         <div class="section-head" data-reveal>
-          <h1 class="display" id="formats-title" tabindex="-1">Форматы<span>.</span></h1>
+          <h2 class="display" id="formats-title" tabindex="-1">Форматы<span>.</span></h2>
           <p>Организуем события для компаний, культурных проектов и города.</p>
         </div>
         <div class="filters" aria-label="Фильтр форматов">
