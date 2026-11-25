@@ -289,7 +289,7 @@ function drawStage() {
     for (let row = 0; row < rows; row++) {
       const taper = Math.sin(column / (columns - 1) * Math.PI);
       const y = stageHeight * .44 + wave + (row - 3) * (8 + taper * 11);
-      context.fillStyle = row === 3 ? "#bd6346" : "#d9d8d5";
+      context.fillStyle = row === 3 ? "#F04B32" : "#d9d8d5";
       context.globalAlpha = .32 + taper * .68;
       context.beginPath();
       context.arc(x, y, Math.max(1.1, Math.min(2.2, stageWidth / 470)), 0, Math.PI * 2);
